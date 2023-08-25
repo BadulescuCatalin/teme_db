@@ -1,0 +1,175 @@
+CREATE TABLE address (
+	id VARCHAR(36) NOT NULL,
+    street VARCHAR(255),
+    city VARCHAR(255),
+    state VARCHAR(255),
+    postal_code VARCHAR(255),
+    country VARCHAR(255),
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE person (
+	id VARCHAR(36) NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    phone_number VARCHAR(12),
+    email_address VARCHAR(255),
+    address_id VARCHAR(36) NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (address_id) REFERENCES address (id)
+);
+
+CREATE TABLE student (
+	id VARCHAR(36) NOT NULL,
+	student_number INT NOT NULL,
+    average_mark INT,
+    person_id VARCHAR(36) NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (person_id) REFERENCES person (id)
+);
+
+CREATE TABLE professor (
+	id VARCHAR(255) NOT NULL,
+	salary INT NOT NULL,
+    staff_number INT,
+    years_of_service INT,
+    number_of_classes INT,
+    person_id varchar(36) NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (person_id) REFERENCES person (id)
+);
+
+CREATE TABLE ProfessorStudent (
+    professor_id VARCHAR(36) NOT NULL,
+    student_id VARCHAR(36) NOT NULL,
+    PRIMARY KEY (professor_id, student_id),
+    FOREIGN KEY (professor_id) REFERENCES Professor(id),
+    FOREIGN KEY (student_id) REFERENCES Student(id)
+);
+
+INSERT INTO address (id, street, city, state, postal_code, country)
+VALUES ('dcd38004-9a5f-405e-aaf1-85e7701ceb9e',
+'Street 1', 'City 1', 'State 1', 'Postal Code 1', 'Country 1');
+
+INSERT INTO address (id, street, city, state, postal_code, country)
+VALUES ('1752163c-5e7f-45f1-ba70-1eaecf700c81',
+'Street 2', 'City 2', 'State 2', 'Postal Code 2', 'Country 2');
+
+INSERT INTO address (id, street, city, state, postal_code, country)
+VALUES ('5f5bc953-ac09-4feb-8e4c-136ebcdd45c9',
+'Street 3', 'City 3', 'State 3', 'Postal Code 3', 'Country 3');
+
+INSERT INTO address (id, street, city, state, postal_code, country)
+VALUES ('e02cf134-7471-4a88-966c-9f33be142bbe',
+'Street 4', 'City 4', 'State 4', 'Postal Code 4', 'Country 4');
+
+INSERT INTO address (id, street, city, state, postal_code, country)
+VALUES ('59ed7f9a-4fc5-40c2-978f-1969796c868d',
+'Street 5', 'City 5', 'State 5', 'Postal Code 5', 'Country 5');
+
+INSERT INTO address (id, street, city, state, postal_code, country)
+VALUES ('f80ea308-61db-4b74-bc4d-4b151cad56ea',
+'Street 6', 'City 6', 'State 6', 'Postal Code 6', 'Country 6');
+
+INSERT INTO person (id, name, phone_number, email_address, address_id)
+VALUES ('9dee4862-dadc-4130-9a15-2dda1ffad8f1',
+'Badulescu Catalin', '0725422494', 'badulescucatalin01@gmail.com',
+'dcd38004-9a5f-405e-aaf1-85e7701ceb9e');
+
+INSERT INTO person (id, name, phone_number, email_address, address_id)
+VALUES ('f3139902-5497-4e27-b3b9-e85f90ebc575',
+'Vasile Ion', '072134519', 'vasileion@gmail.com',
+'1752163c-5e7f-45f1-ba70-1eaecf700c81');
+
+INSERT INTO person (id, name, phone_number, email_address, address_id)
+VALUES ('ae8f2ac0-3560-4ef0-a62b-c64cc407c28c',
+'Toma Andrei', '0789275672', 'andreitoma@gmail.com',
+'5f5bc953-ac09-4feb-8e4c-136ebcdd45c9');
+
+INSERT INTO person (id, name, phone_number, email_address, address_id)
+VALUES ('494879dc-4d3f-44d2-a65c-e9c0fa3e81a4',
+'Popescu Matei', '0738984671', 'mateipopescu@gmail.com',
+'e02cf134-7471-4a88-966c-9f33be142bbe');
+
+INSERT INTO person (id, name, phone_number, email_address, address_id)
+VALUES ('8d11aef2-8a68-42cf-a8f9-ee9a968f8d81',
+'Badea Ioana', '0737829475', 'bioana@gmail.com',
+'59ed7f9a-4fc5-40c2-978f-1969796c868d');
+
+INSERT INTO student (id, student_number, average_mark, person_id)
+VALUES ('9598d9b6-099e-409c-9dcc-443d001b0244',
+1, 10, '9dee4862-dadc-4130-9a15-2dda1ffad8f1');
+
+INSERT INTO student (id, student_number, average_mark, person_id)
+VALUES ('2ba62fbd-0463-46cd-aec3-89bb8a1e2121',
+2, 9, 'f3139902-5497-4e27-b3b9-e85f90ebc575');
+
+INSERT INTO student (id, student_number, average_mark, person_id)
+VALUES ('9fd209ed-5f39-4923-9bd5-b28e6fc66d4a',
+3, 8, 'ae8f2ac0-3560-4ef0-a62b-c64cc407c28c');
+
+INSERT INTO professor (id, salary, staff_number, years_of_service,
+number_of_classes, person_id)
+VALUES ('289ee187-1af2-4b00-baad-d459f8aeed3c',
+7000, 1, 2, 4, '494879dc-4d3f-44d2-a65c-e9c0fa3e81a4');
+	
+INSERT INTO professor (id, salary, staff_number, years_of_service,
+number_of_classes, person_id)
+VALUES ('d6ec6f28-1209-46f8-bf68-cb56fba7baa5',
+10000, 2, 5, 6, '8d11aef2-8a68-42cf-a8f9-ee9a968f8d81');
+
+INSERT INTO professorstudent (professor_id, student_id)
+values ('d6ec6f28-1209-46f8-bf68-cb56fba7baa5', '9fd209ed-5f39-4923-9bd5-b28e6fc66d4a');
+
+INSERT INTO professorstudent (professor_id, student_id)
+values ('d6ec6f28-1209-46f8-bf68-cb56fba7baa5', '2ba62fbd-0463-46cd-aec3-89bb8a1e2121');
+
+INSERT INTO professorstudent (professor_id, student_id)
+values ('289ee187-1af2-4b00-baad-d459f8aeed3c', '2ba62fbd-0463-46cd-aec3-89bb8a1e2121');
+
+INSERT INTO professorstudent (professor_id, student_id)
+values ('289ee187-1af2-4b00-baad-d459f8aeed3c', '9598d9b6-099e-409c-9dcc-443d001b0244');
+
+SELECT name, email_address as email FROM person where name like 'B%';
+
+SELECT CONCAT(CONCAT(street, ' '), city) as street_city from address
+where city < 'City 6' and city > 'City 1'
+order by city; 
+
+UPDATE person set phone_number = '0711111111' where id = '494879dc-4d3f-44d2-a65c-e9c0fa3e81a4';
+
+UPDATE address AS a
+JOIN person AS p ON a.id = p.address_id
+SET a.postal_code = '100576'
+WHERE p.name = 'Badulescu Catalin' and phone_number = '0725422494';
+
+SELECT s.id AS student_id, s.student_number, a.street, a.city
+FROM student s
+INNER JOIN person p ON s.person_id = p.id
+INNER JOIN address a ON p.address_id = a.id;
+
+SELECT p.name, p.email_address, pr.salary
+FROM person p
+INNER JOIN professor pr ON p.id = pr.person_id;
+
+SELECT p.name, p.email_address, pr.salary
+FROM person p
+LEFT JOIN professor pr ON p.id = pr.person_id;
+
+SELECT p.name, p.email_address, pr.number_of_classes
+FROM professor pr
+RIGHT JOIN person p ON pr.person_id = p.id;
+
+DELETE FROM address where id = 'f80ea308-61db-4b74-bc4d-4b151cad56ea';
+
+INSERT INTO address (id, street, city, state, postal_code, country)
+VALUES ('59ed7f9a-4fc5-40c2-978f-1969796c868e',
+'Street 7', 'City 7', 'State 7', 'Postal Code 7', 'Country 7');
+
+INSERT INTO person (id, name, phone_number, email_address, address_id)
+VALUES ('8d888ef2-8a68-42cf-a8f9-ee9a968f8d81',
+'Apostol Alin', '0742494735', 'supertare@gmail.com',
+'59ed7f9a-4fc5-40c2-978f-1969796c868e');
+
+DELETE p FROM person p
+INNER JOIN address a ON p.address_id = a.id
+where a.id = '59ed7f9a-4fc5-40c2-978f-1969796c868e'; 
